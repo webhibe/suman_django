@@ -1,0 +1,7 @@
+#create folder
+mkdir folder_name
+cd folder_name
+
+# Create a virtual environment to isolate our package dependencies locally
+python3 -m venv env
+source env/bin/activate 
