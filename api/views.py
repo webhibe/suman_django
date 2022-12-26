@@ -4,15 +4,18 @@ from rest_framework import status
 # Create your views here.
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import Group,User
+from .models import Category,Product,SubCategory,Order,CartItem
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.views import LoginView as KnoxLoginView,LogoutView
-
+from django.shortcuts import get_object_or_404
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from knox.models import AuthToken
-from .serializers import UserSerializer, RegisterSerializer
+from .serializers import (UserSerializer, RegisterSerializer,CategorySerializer,
+                            ProductSerializer,SubCategorySerializer,
+                            OrderSerializer,CartItemSerializer)
 from django.views.decorators.debug import sensitive_post_parameters
-
+from rest_framework import viewsets
 from rest_framework.views import APIView
 
 # Register API
@@ -146,3 +149,121 @@ class AdminAPI(generics.RetrieveAPIView):
 
         data ={ "first_name": "","last_name": "","username": "","is_active": False,"groups": []}
         return data
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows category to be viewed or edited.
+    """
+    permission_classes = [permissions.IsAuthenticated,]
+    serializer_class = UserSerializer
+
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+    def delete(self, request, id=None):
+        item = get_object_or_404(CartItem, id=id)
+        item.delete()
+        return Response({"status": "success", "data": "Item Deleted"})
+
+
+
+class ProductViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows items to be viewed or edited.
+    """
+    permission_classes = [permissions.IsAuthenticated,]
+    serializer_class = UserSerializer
+
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+
+
+class SubProductViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows items to be viewed or edited.
+    """
+    permission_classes = [permissions.IsAuthenticated,]
+    serializer_class = UserSerializer
+    
+    queryset = SubCategory.objects.all()
+    serializer_class = SubCategorySerializer
+
+class OrderViewSet(viewsets.ModelViewSet):
+
+
+    permission_classes = [permissions.IsAuthenticated,]
+    serializer_class = UserSerializer
+    
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer
+
+class CartItemViews(APIView):
+    permission_classes = [permissions.IsAuthenticated,]
+    serializer_class = UserSerializer
+    def post(self, request):
+        serializer = CartItemSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+        else:
+            return Response({"status": "error", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    def get(self, request, id=None):
+        if id:
+            try:
+                item = CartItem.objects.get(id=id)
+            except Exception as ex:
+                return Response({"status": "error", "data": str(ex)})
+            serializer = CartItemSerializer(item)
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+
+        items = CartItem.objects.all()
+        serializer = CartItemSerializer(items, many=True)
+        return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+    def patch(self, request, id=None):
+        try:
+            item = CartItem.objects.get(id=id)
+        except Exception as ex:
+            return Response({"status": "error", "data": str(ex)})
+        serializer = CartItemSerializer(item, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "data": serializer.data})
+        else:
+            return Response({"status": "error", "data": serializer.errors})
+    def delete(self, request, id=None):
+        item = get_object_or_404(CartItem, id=id)
+        item.delete()
+        return Response({"status": "success", "data": "Item Deleted"})
+
+    def put(self, request, id=None):
+        try:
+            item = CartItem.objects.get(id=id)
+        except Exception as ex:
+            return Response({"status": "error", "data": str(ex)})
+        serializer = CartItemSerializer(item, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "data": serializer.data})
+        return Response({"status": "error", "data": serializer.errors})
+
+
+class UserViews(APIView):
+    permission_classes = [permissions.IsAuthenticated,]
+    serializer_class = UserSerializer
+    
+    def patch(self, request, id=None):
+        try:
+            item = User.objects.get(id=id)
+        except Exception as ex:
+            return Response({"status": "error", "data": str(ex)})
+        serializer = UserSerializer(item, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "data": serializer.data})
+        else:
+            return Response({"status": "error", "data": serializer.errors})
+    def delete(self, request, id=None):
+        item = get_object_or_404(User, id=id)
+        item.delete()
+        return Response({"status": "success", "data": "Item Deleted"})

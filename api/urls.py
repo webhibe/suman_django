@@ -1,7 +1,17 @@
 from knox import views as knox_views
 from .views import (LoginAPI, RegisterAPI, UserAPI,AdminRegisterAPI,
-                    AdminAPI,AllUserAPI,UserEnableDisable,LogoutAPI)
-from django.urls import path
+                    AdminAPI,AllUserAPI,UserEnableDisable,LogoutAPI,
+                    CategoryViewSet,ProductViewSet,SubProductViewSet,
+                    OrderViewSet,CartItemViews,UserViews)
+from django.urls import path,include
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'category', CategoryViewSet)
+router.register(r'subcategory', SubProductViewSet)
+router.register(r'product', ProductViewSet)
+router.register(r'order', OrderViewSet)
+
 
 urlpatterns = [
     path('api/register/', RegisterAPI.as_view(), name='register'),
@@ -15,4 +25,8 @@ urlpatterns = [
     path('api/admin/', AdminAPI.as_view(), name='user'),
     path('api/disable/<int:id>', UserEnableDisable.as_view(), name='disable'),
     path('api/enable/<int:id>', UserEnableDisable.as_view(), name='enable'),
+    path('api/', include(router.urls)),
+    path('api/cart-items/', CartItemViews.as_view()),
+    path('api/cart-items/<int:id>', CartItemViews.as_view()),
+    path('api/userop/<int:id>', UserViews.as_view()),
     ]

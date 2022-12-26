@@ -3,6 +3,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.models import User,Group
+from .models import Product,Category, SubCategory, Order,CartItem
 
 
 class GroupSerializer(serializers.ModelSerializer):    
@@ -61,3 +62,33 @@ class RegisterSerializer(serializers.ModelSerializer):
     user.save()
     return user
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id', 'category_name']
+
+class SubCategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SubCategory 
+        fields = ['id', 'sub_category_name','category']
+
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        
+        fields = ['id', 'product_name', 'price', 'on_discount', 'discount_price','category','subcategory', 'stock','image_url','description']
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        
+        fields = ['id', 'product', 'user', 'quantity', 'price','address','phone','date','status']
+
+class CartItemSerializer(serializers.ModelSerializer):
+    product_name = serializers.CharField(max_length=200)
+    product_price = serializers.FloatField()
+    product_quantity = serializers.IntegerField(required=False, default=1)
+
+    class Meta:
+        model = CartItem
+        fields = ('__all__')
