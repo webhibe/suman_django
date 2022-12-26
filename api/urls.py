@@ -27,6 +27,6 @@ urlpatterns = [
     path('api/enable/<int:id>', UserEnableDisable.as_view(), name='enable'),
     path('api/', include(router.urls)),
     path('api/cart-items/', CartItemViews.as_view()),
-    path('api/cart-items/<int:id>', CartItemViews.as_view()),
-    path('api/userop/<int:id>', UserViews.as_view()),
+    path('api/cart-items/<int:id>/', CartItemViews.as_view()),
+    path('api/userop/<int:id>/', UserViews.as_view()),
     ]
