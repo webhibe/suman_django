@@ -1,0 +1,1209 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+paths:
+  /swagger/docs:
+    get:
+      operationId: listSwaggerSchemas
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/coreapi+json:
+              schema:
+                type: array
+                items: {}
+            application/openapi+json:
+              schema:
+                type: array
+                items: {}
+            text/html:
+              schema:
+                type: array
+                items: {}
+          description: ''
+      tags:
+      - swagger
+  /api/user/:
+    get:
+      operationId: retrieveUser
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+      tags:
+      - api
+  /api/alluser/:
+    get:
+      operationId: listAllUserAPIs
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+          description: ''
+      tags:
+      - api
+  /api/admin/:
+    get:
+      operationId: retrieveUser
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+      tags:
+      - api
+  /api/category/:
+    get:
+      operationId: listCategorys
+      description: API endpoint that allows category to be viewed or edited.
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createCategory
+      description: API endpoint that allows category to be viewed or edited.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Category'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+      tags:
+      - api
+  /api/category/{id}/:
+    get:
+      operationId: retrieveCategory
+      description: API endpoint that allows category to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this category.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateCategory
+      description: API endpoint that allows category to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this category.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Category'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateCategory
+      description: API endpoint that allows category to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this category.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Category'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Category'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyCategory
+      description: API endpoint that allows category to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this category.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/subcategory/:
+    get:
+      operationId: listSubCategorys
+      description: API endpoint that allows items to be viewed or edited.
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubCategory'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createSubCategory
+      description: API endpoint that allows items to be viewed or edited.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubCategory'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubCategory'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SubCategory'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubCategory'
+          description: ''
+      tags:
+      - api
+  /api/subcategory/{id}/:
+    get:
+      operationId: retrieveSubCategory
+      description: API endpoint that allows items to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this sub category.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubCategory'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateSubCategory
+      description: API endpoint that allows items to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this sub category.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubCategory'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubCategory'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SubCategory'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubCategory'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateSubCategory
+      description: API endpoint that allows items to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this sub category.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubCategory'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/SubCategory'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/SubCategory'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubCategory'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroySubCategory
+      description: API endpoint that allows items to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this sub category.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/product/:
+    get:
+      operationId: listProducts
+      description: API endpoint that allows items to be viewed or edited.
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createProduct
+      description: API endpoint that allows items to be viewed or edited.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+      tags:
+      - api
+  /api/product/{id}/:
+    get:
+      operationId: retrieveProduct
+      description: API endpoint that allows items to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this product.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateProduct
+      description: API endpoint that allows items to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this product.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateProduct
+      description: API endpoint that allows items to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this product.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyProduct
+      description: API endpoint that allows items to be viewed or edited.
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this product.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/order/:
+    get:
+      operationId: listOrders
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createOrder
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Order'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+      tags:
+      - api
+  /api/order/{id}/:
+    get:
+      operationId: retrieveOrder
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this order.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateOrder
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this order.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Order'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateOrder
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this order.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Order'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Order'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Order'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Order'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyOrder
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this order.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/cart-items/:
+    get:
+      operationId: listCartItemViews
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createCartItemViews
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateCartItemViews
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateCartItemViews
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyCartItemViews
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/cart-items/{id}/:
+    get:
+      operationId: retrieveCartItemViews
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createCartItemViews
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateCartItemViews
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateCartItemViews
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyCartItemViews
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/register/:
+    post:
+      operationId: createRegister
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Register'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Register'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Register'
+          description: ''
+      tags:
+      - api
+  /api/admin/register/:
+    post:
+      operationId: createRegister
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Register'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Register'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Register'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Register'
+          description: ''
+      tags:
+      - api
+  /api/login/:
+    post:
+      operationId: createLoginAPI
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+  /api/logout/:
+    post:
+      operationId: createLogoutAPI
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+  /api/logoutall/:
+    post:
+      operationId: createLogoutAll
+      description: 'Log the user out of all sessions
+
+        I.E. deletes all auth tokens for the user'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+  /api/disable/{id}:
+    patch:
+      operationId: partialUpdateUserEnableDisable
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyUserEnableDisable
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/enable/{id}:
+    patch:
+      operationId: partialUpdateUserEnableDisable
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyUserEnableDisable
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+  /api/userop/{id}/:
+    patch:
+      operationId: partialUpdateUserViews
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyUserViews
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+\z
+          maxLength: 150
+        is_active:
+          type: boolean
+          description: Designates whether this user should be treated as active. Unselect
+            this instead of deleting accounts.
+        groups:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                maxLength: 150
+            required:
+            - name
+      required:
+      - username
+      - groups
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        category_name:
+          type: string
+          maxLength: 100
+      required:
+      - category_name
+    SubCategory:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        sub_category_name:
+          type: string
+          maxLength: 100
+        category:
+          type: integer
+      required:
+      - sub_category_name
+      - category
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        product_name:
+          type: string
+          maxLength: 100
+        price:
+          type: number
+        on_discount:
+          type: boolean
+        discount_price:
+          type: number
+          nullable: true
+        category:
+          type: integer
+        subcategory:
+          type: integer
+        stock:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        image_url:
+          type: string
+          format: binary
+          nullable: true
+        description:
+          type: string
+      required:
+      - product_name
+      - category
+      - subcategory
+      - description
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        product:
+          type: integer
+        user:
+          type: integer
+        quantity:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        price:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        address:
+          type: string
+          maxLength: 50
+        phone:
+          type: string
+          maxLength: 50
+        date:
+          type: string
+          format: date
+        status:
+          type: boolean
+      required:
+      - product
+      - user
+      - price
+    Register:
+      type: object
+      properties:
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+\z
+          maxLength: 150
+        password:
+          type: string
+          writeOnly: true
+        password2:
+          type: string
+          writeOnly: true
+        email:
+          type: string
+          format: email
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+      required:
+      - username
+      - password
+      - password2
+      - email
+      - first_name
+      - last_name

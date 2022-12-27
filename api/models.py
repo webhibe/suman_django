@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 
+from django.core.validators import FileExtensionValidator
+
 # Create your models here.
 class Category(models.Model):
     category_name = models.CharField(max_length=100)
@@ -16,8 +18,10 @@ class SubCategory(models.Model):
     def __str__(self):
         return self.sub_category_name
 
-def upload_to(instance, filename):
+def image_upload(instance, filename):
     return 'images/{filename}'.format(filename=filename)
+def video_upload(instance, filename):
+    return 'videos/{filename}'.format(filename=filename)
 
 class Product(models.Model):
     product_name = models.CharField(max_length=100)
@@ -27,11 +31,19 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     stock = models.IntegerField(default=0)
-    image_url = models.ImageField(upload_to=upload_to, blank=True, null=True)
+    image_url = models.ImageField(upload_to=image_upload, blank=True, null=True)
     description = models.TextField()
 
     def __str__(self):
         return self.product_name
+
+class ImageVideo(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    image_url = models.ImageField(upload_to=image_upload, blank=True, null=True)
+    video_url = models.FileField(upload_to=video_upload,blank=True, null=True, validators=[FileExtensionValidator( ['MP4','WEBM','MPG','MP2','MPEG','MPE','MPV','OGG','M4P','M4V','AVI','WMV'] ) ])
+
+    def __str__(self):
+        return self.product.product_name
 
 class Order(models.Model):
     product = models.ForeignKey(Product,

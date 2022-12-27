@@ -2,7 +2,7 @@ from knox import views as knox_views
 from .views import (LoginAPI, RegisterAPI, UserAPI,AdminRegisterAPI,
                     AdminAPI,AllUserAPI,UserEnableDisable,LogoutAPI,
                     CategoryViewSet,ProductViewSet,SubProductViewSet,
-                    OrderViewSet,CartItemViews,UserViews)
+                    OrderViewSet,CartItemViews,UserViews,ImageVideoViewSet)
 from django.urls import path,include
 from rest_framework import routers
 
@@ -11,6 +11,7 @@ router.register(r'category', CategoryViewSet)
 router.register(r'subcategory', SubProductViewSet)
 router.register(r'product', ProductViewSet)
 router.register(r'order', OrderViewSet)
+router.register(r'imagevideo', ImageVideoViewSet)
 
 
 urlpatterns = [

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product,Category,SubCategory,Order,CartItem
+from .models import Product,Category,SubCategory,Order,CartItem,ImageVideo
 from django.contrib.auth.models import User,Group
 # Register your models here.
 class ProductAdmin(admin.ModelAdmin):
@@ -14,8 +14,11 @@ class SubCategoryAdmin(admin.ModelAdmin):
 
 class CartItemAdmin(admin.ModelAdmin):
     list_display = ['id', 'product_name','product_price','product_quantity']
+class ImageVideoAdmin(admin.ModelAdmin):
+    list_display = ['id', 'product','image_url','video_url']
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Category,CategoryAdmin)
 admin.site.register(SubCategory,SubCategoryAdmin)
 admin.site.register(Order,OrderAdmin)
 admin.site.register(CartItem,CartItemAdmin)
+admin.site.register(ImageVideo,ImageVideoAdmin)

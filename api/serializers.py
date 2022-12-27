@@ -3,7 +3,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.models import User,Group
-from .models import Product,Category, SubCategory, Order,CartItem
+from .models import Product,Category, SubCategory,Order,CartItem,ImageVideo
 
 
 class GroupSerializer(serializers.ModelSerializer):    
@@ -92,3 +92,9 @@ class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
         fields = ('__all__')
+
+class ImageVideoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ImageVideo
+        fields = ('id','product','image_url','video_url')

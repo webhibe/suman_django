@@ -4,7 +4,7 @@ from rest_framework import status
 # Create your views here.
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import Group,User
-from .models import Category,Product,SubCategory,Order,CartItem
+from .models import Category,Product,SubCategory,Order,CartItem,ImageVideo
 from rest_framework.authtoken.serializers import AuthTokenSerializer
 from knox.views import LoginView as KnoxLoginView,LogoutView
 from django.shortcuts import get_object_or_404
@@ -13,7 +13,7 @@ from rest_framework.response import Response
 from knox.models import AuthToken
 from .serializers import (UserSerializer, RegisterSerializer,CategorySerializer,
                             ProductSerializer,SubCategorySerializer,
-                            OrderSerializer,CartItemSerializer)
+                            OrderSerializer,CartItemSerializer,ImageVideoSerializer)
 from django.views.decorators.debug import sensitive_post_parameters
 from rest_framework import viewsets
 from rest_framework.views import APIView
@@ -160,10 +160,10 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-    def delete(self, request, id=None):
-        item = get_object_or_404(CartItem, id=id)
-        item.delete()
-        return Response({"status": "success", "data": "Item Deleted"})
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({ "message":'delete resource success', "status":status.HTTP_204_NO_CONTENT})
 
 
 
@@ -177,6 +177,11 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({ "message":'delete resource success', "status":status.HTTP_204_NO_CONTENT})
+
 
 
 class SubProductViewSet(viewsets.ModelViewSet):
@@ -189,6 +194,11 @@ class SubProductViewSet(viewsets.ModelViewSet):
     queryset = SubCategory.objects.all()
     serializer_class = SubCategorySerializer
 
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({ "message":'delete resource success', "status":status.HTTP_204_NO_CONTENT})
+
 class OrderViewSet(viewsets.ModelViewSet):
 
 
@@ -197,6 +207,11 @@ class OrderViewSet(viewsets.ModelViewSet):
     
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({ "message":'delete resource success', "status":status.HTTP_204_NO_CONTENT})
 
 class CartItemViews(APIView):
     permission_classes = [permissions.IsAuthenticated,]
@@ -267,3 +282,19 @@ class UserViews(APIView):
         item = get_object_or_404(User, id=id)
         item.delete()
         return Response({"status": "success", "data": "Item Deleted"})
+
+
+class ImageVideoViewSet(viewsets.ModelViewSet):
+
+
+    permission_classes = [permissions.IsAuthenticated,]
+    serializer_class = UserSerializer
+    
+    queryset = ImageVideo.objects.all()
+    serializer_class = ImageVideoSerializer
+
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({ "message":'delete resource success', "status":status.HTTP_204_NO_CONTENT})
