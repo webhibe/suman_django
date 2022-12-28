@@ -3,7 +3,7 @@ from .models import Product,Category,SubCategory,Order,CartItem,ImageVideo
 from django.contrib.auth.models import User,Group
 # Register your models here.
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['id', 'product_name', 'price', 'on_discount', 'discount_price','category','subcategory', 'stock','image_url','description']
+    list_display = ['id', 'product_name', 'price', 'on_discount', 'discount_price','category','subcategory', 'stock','description']
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['id', 'product', 'user', 'quantity', 'price','address','phone','date','status']
 class CategoryAdmin(admin.ModelAdmin):

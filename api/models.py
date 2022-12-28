@@ -31,7 +31,6 @@ class Product(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     stock = models.IntegerField(default=0)
-    image_url = models.ImageField(upload_to=image_upload, blank=True, null=True)
     description = models.TextField()
 
     def __str__(self):

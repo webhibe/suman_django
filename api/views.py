@@ -17,6 +17,7 @@ from .serializers import (UserSerializer, RegisterSerializer,CategorySerializer,
 from django.views.decorators.debug import sensitive_post_parameters
 from rest_framework import viewsets
 from rest_framework.views import APIView
+import os
 
 # Register API
 class RegisterAPI(generics.GenericAPIView):
@@ -296,5 +297,9 @@ class ImageVideoViewSet(viewsets.ModelViewSet):
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
+        if os.path.exists(instance.image_url.path):
+            os.remove(instance.image_url.path)
+            os.remove(instance.video_url.path)
         self.perform_destroy(instance)
         return Response({ "message":'delete resource success', "status":status.HTTP_204_NO_CONTENT})
+    
