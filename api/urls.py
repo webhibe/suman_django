@@ -2,7 +2,7 @@ from knox import views as knox_views
 from .views import (LoginAPI, RegisterAPI, UserAPI,AdminRegisterAPI,
                     AdminAPI,AllUserAPI,UserEnableDisable,LogoutAPI,
                     CategoryViewSet,ProductViewSet,SubProductViewSet,
-                    OrderViewSet,CartItemViews,UserViews,ImageVideoViewSet)
+                    OrderViewSet,CartItemViews,UserViews,ImageVideoViewSet,ChangePasswordView)
 from django.urls import path,include
 from rest_framework import routers
 
@@ -30,4 +30,6 @@ urlpatterns = [
     path('api/cart-items/', CartItemViews.as_view()),
     path('api/cart-items/<int:id>/', CartItemViews.as_view()),
     path('api/userop/<int:id>/', UserViews.as_view()),
+    path('api/change-password/', ChangePasswordView.as_view(), name='change-password'),
+    path('api/email/password_reset/', include('django_rest_passwordreset.urls', namespace='password_reset')),
     ]

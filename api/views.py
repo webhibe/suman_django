@@ -13,7 +13,7 @@ from rest_framework.response import Response
 from knox.models import AuthToken
 from .serializers import (UserSerializer, RegisterSerializer,CategorySerializer,
                             ProductSerializer,SubCategorySerializer,
-                            OrderSerializer,CartItemSerializer,ImageVideoSerializer)
+                            OrderSerializer,CartItemSerializer,ImageVideoSerializer,ChangePasswordSerializer)
 from django.views.decorators.debug import sensitive_post_parameters
 from rest_framework import viewsets
 from rest_framework.views import APIView
@@ -302,4 +302,60 @@ class ImageVideoViewSet(viewsets.ModelViewSet):
             os.remove(instance.video_url.path)
         self.perform_destroy(instance)
         return Response({ "message":'delete resource success', "status":status.HTTP_204_NO_CONTENT})
+
+
+
+class ChangePasswordView(generics.UpdateAPIView):
+    """
+    An endpoint for changing password.
+    """
+    serializer_class = ChangePasswordSerializer
+    model = User
+    permission_classes = [permissions.IsAuthenticated,]
+
+    def get_object(self, queryset=None):
+        obj = self.request.user
+        return obj
+
+    def update(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            # Check old password
+            if not self.object.check_password(serializer.data.get("old_password")):
+                return Response({"old_password": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+            # set_password also hashes the password that the user will get
+            self.object.set_password(serializer.data.get("new_password"))
+            self.object.save()
+            response = {
+                'status': 'success',
+                'code': status.HTTP_200_OK,
+                'message': 'Password updated successfully',
+                'data': serializer.data
+            }
+
+            return Response(response)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+from django.dispatch import receiver
+from django.urls import reverse
+from django_rest_passwordreset.signals import reset_password_token_created
+from django.core.mail import send_mail  
+from django.conf import settings
+
+@receiver(reset_password_token_created)
+def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):
     
+    email_plaintext_message = "{}?token={}".format(reverse('password_reset:reset-password-request'), reset_password_token.key)
+    send_mail(
+        # title:
+        "Password Reset for {title}".format(title="webhibe"),
+        # message:
+        email_plaintext_message,
+        # from:
+        settings.EMAIL_HOST_USER,
+        # to:
+        [reset_password_token.user.email]
+    )

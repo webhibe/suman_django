@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'api',
     'django_cleanup.apps.CleanupConfig',
     'knox',
+    'django_rest_passwordreset',
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'uesr_login.urls'
 
+#Email
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'suman.webhibe@gmail.com'
+EMAIL_HOST_PASSWORD = 'Suman3395@'
 
 # REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' }
 REST_FRAMEWORK = {

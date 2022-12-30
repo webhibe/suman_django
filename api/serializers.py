@@ -98,3 +98,12 @@ class ImageVideoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImageVideo
         fields = ('id','product','image_url','video_url')
+
+class ChangePasswordSerializer(serializers.Serializer):
+    model = User
+
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
