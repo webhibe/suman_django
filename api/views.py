@@ -18,6 +18,11 @@ from django.views.decorators.debug import sensitive_post_parameters
 from rest_framework import viewsets
 from rest_framework.views import APIView
 import os
+from django.dispatch import receiver
+from django.urls import reverse
+from django_rest_passwordreset.signals import reset_password_token_created
+from django.core.mail import send_mail  
+from django.conf import settings
 
 # Register API
 class RegisterAPI(generics.GenericAPIView):
@@ -339,11 +344,7 @@ class ChangePasswordView(generics.UpdateAPIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-from django.dispatch import receiver
-from django.urls import reverse
-from django_rest_passwordreset.signals import reset_password_token_created
-from django.core.mail import send_mail  
-from django.conf import settings
+
 
 @receiver(reset_password_token_created)
 def password_reset_token_created(sender, instance, reset_password_token, *args, **kwargs):

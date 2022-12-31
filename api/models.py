@@ -1,9 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
+import pytz
+from django.utils import timezone
 
 from django.core.validators import FileExtensionValidator
-
+tz = pytz.timezone('Asia/Kolkata')
 # Create your models here.
 class Category(models.Model):
     category_name = models.CharField(max_length=100)
@@ -32,6 +34,8 @@ class Product(models.Model):
     subcategory = models.ForeignKey(SubCategory, on_delete=models.CASCADE)
     stock = models.IntegerField(default=0)
     description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.product_name
@@ -53,18 +57,25 @@ class Order(models.Model):
     price = models.IntegerField()
     address = models.CharField(max_length=50, default='', blank=True)
     phone = models.CharField(max_length=50, default='', blank=True)
-    date = models.DateField(default=datetime.datetime.today)
+    date = models.DateField(default=datetime.date.today)
+    time = models.TimeField(default=datetime.datetime.now().astimezone(tz).strftime("%H:%M:%S"))
     status = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.user.first_name
 
 class CartItem(models.Model):
-    product_name = models.CharField(max_length=200)
+    # product_name = models.CharField(max_length=200)
+    product = models.ForeignKey(Product,
+                                on_delete=models.CASCADE)
     product_price = models.FloatField()
     product_quantity = models.PositiveIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.product_name
+        return self.product.product_name
   
 

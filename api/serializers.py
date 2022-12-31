@@ -76,16 +76,16 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         
-        fields = ['id', 'product_name', 'price', 'on_discount', 'discount_price','category','subcategory', 'stock','description']
+        fields = ['id', 'product_name', 'price', 'on_discount', 'discount_price','category','subcategory', 'stock','description','created_at','updated_at']
 
 class OrderSerializer(serializers.ModelSerializer):
+  
     class Meta:
         model = Order
         
-        fields = ['id', 'product', 'user', 'quantity', 'price','address','phone','date','status']
+        fields = ['id', 'product', 'user', 'quantity', 'price','address','phone','date','time','status','created_at','updated_at']
 
 class CartItemSerializer(serializers.ModelSerializer):
-    product_name = serializers.CharField(max_length=200)
     product_price = serializers.FloatField()
     product_quantity = serializers.IntegerField(required=False, default=1)
 

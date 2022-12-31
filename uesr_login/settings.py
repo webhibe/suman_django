@@ -66,7 +66,7 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'suman.webhibe@gmail.com'
-EMAIL_HOST_PASSWORD = 'Suman3395@'
+EMAIL_HOST_PASSWORD = 'wvraxvupuqxnkovb'
 
 # REST_FRAMEWORK = { 'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema' }
 REST_FRAMEWORK = {
