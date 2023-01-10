@@ -23,6 +23,8 @@ from django.urls import reverse
 from django_rest_passwordreset.signals import reset_password_token_created
 from django.core.mail import send_mail  
 from django.conf import settings
+from drf_yasg.utils import swagger_auto_schema
+
 
 # Register API
 class RegisterAPI(generics.GenericAPIView):
@@ -360,3 +362,27 @@ def password_reset_token_created(sender, instance, reset_password_token, *args, 
         # to:
         [reset_password_token.user.email]
     )
+
+class UserOrderViews(APIView):
+    permission_classes = [permissions.IsAuthenticated,]
+    serializer_class = UserSerializer
+    def get_object(self, queryset=None):
+        obj = self.request.user
+        return obj
+
+    def get(self, request, id=None):
+        self.object = self.get_object()
+        if id:
+            try:
+                item = Order.objects.get(id=id)
+            except Exception as ex:
+                return Response({"status": "error", "data": str(ex)})
+            serializer = OrderSerializer(item)
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+
+        items = Order.objects.filter(user=self.object.id)
+        print(self.object.id)
+        serializer = OrderSerializer(items, many=True)
+        return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+    
+    

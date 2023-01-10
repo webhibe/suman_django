@@ -70,6 +70,8 @@ class CartItem(models.Model):
     # product_name = models.CharField(max_length=200)
     product = models.ForeignKey(Product,
                                 on_delete=models.CASCADE)
+    user = models.ForeignKey(User,
+                                 on_delete=models.CASCADE)
     product_price = models.FloatField()
     product_quantity = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)

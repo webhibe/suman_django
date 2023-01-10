@@ -3,29 +3,6 @@ info:
   title: ''
   version: ''
 paths:
-  /swagger/docs:
-    get:
-      operationId: listSwaggerSchemas
-      description: ''
-      parameters: []
-      responses:
-        '200':
-          content:
-            application/coreapi+json:
-              schema:
-                type: array
-                items: {}
-            application/openapi+json:
-              schema:
-                type: array
-                items: {}
-            text/html:
-              schema:
-                type: array
-                items: {}
-          description: ''
-      tags:
-      - swagger
   /api/user/:
     get:
       operationId: retrieveUser
@@ -609,6 +586,141 @@ paths:
           description: ''
       tags:
       - api
+  /api/imagevideo/:
+    get:
+      operationId: listImageVideos
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ImageVideo'
+          description: ''
+      tags:
+      - api
+    post:
+      operationId: createImageVideo
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageVideo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ImageVideo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ImageVideo'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageVideo'
+          description: ''
+      tags:
+      - api
+  /api/imagevideo/{id}/:
+    get:
+      operationId: retrieveImageVideo
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this image video.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageVideo'
+          description: ''
+      tags:
+      - api
+    put:
+      operationId: updateImageVideo
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this image video.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageVideo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ImageVideo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ImageVideo'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageVideo'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateImageVideo
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this image video.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageVideo'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ImageVideo'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ImageVideo'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageVideo'
+          description: ''
+      tags:
+      - api
+    delete:
+      operationId: destroyImageVideo
+      description: ''
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this image video.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: ''
+      tags:
+      - api
   /api/cart-items/:
     get:
       operationId: listCartItemViews
@@ -805,6 +917,21 @@ paths:
           description: ''
       tags:
       - api
+  /api/user/order/:
+    get:
+      operationId: listUserOrderViews
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+          description: ''
+      tags:
+      - api
   /api/register/:
     post:
       operationId: createRegister
@@ -917,6 +1044,135 @@ paths:
           content:
             application/json:
               schema: {}
+          description: ''
+      tags:
+      - api
+  /api/email/password_reset/validate_token/:
+    post:
+      operationId: createResetToken
+      description: An Api View which provides a method to verify that a token is valid
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResetToken'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ResetToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ResetToken'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResetToken'
+          description: ''
+      tags:
+      - api
+  /api/email/password_reset/confirm/:
+    post:
+      operationId: createPasswordToken
+      description: An Api View which provides a method to reset a password based on
+        a unique token
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordToken'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PasswordToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PasswordToken'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PasswordToken'
+          description: ''
+      tags:
+      - api
+  /api/email/password_reset/:
+    post:
+      operationId: createEmail
+      description: 'An Api View which provides a method to request a password reset
+        token based on an e-mail address
+
+
+        Sends a signal reset_password_token_created when a reset token was created'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Email'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Email'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Email'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Email'
+          description: ''
+      tags:
+      - api
+  /api/change-password/:
+    put:
+      operationId: updateChangePassword
+      description: An endpoint for changing password.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangePassword'
+          description: ''
+      tags:
+      - api
+    patch:
+      operationId: partialUpdateChangePassword
+      description: An endpoint for changing password.
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ChangePassword'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangePassword'
           description: ''
       tags:
       - api
@@ -1132,12 +1388,16 @@ components:
           type: integer
           maximum: 2147483647
           minimum: -2147483648
-        image_url:
-          type: string
-          format: binary
-          nullable: true
         description:
           type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
       required:
       - product_name
       - category
@@ -1170,12 +1430,40 @@ components:
         date:
           type: string
           format: date
+        time:
+          type: string
         status:
           type: boolean
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
       required:
       - product
       - user
       - price
+    ImageVideo:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        product:
+          type: integer
+        image_url:
+          type: string
+          format: binary
+          nullable: true
+        video_url:
+          type: string
+          format: binary
+          nullable: true
+      required:
+      - product
     Register:
       type: object
       properties:
@@ -1207,3 +1495,38 @@ components:
       - email
       - first_name
       - last_name
+    ResetToken:
+      type: object
+      properties:
+        token:
+          type: string
+      required:
+      - token
+    PasswordToken:
+      type: object
+      properties:
+        password:
+          type: string
+        token:
+          type: string
+      required:
+      - password
+      - token
+    Email:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+      - email
+    ChangePassword:
+      type: object
+      properties:
+        old_password:
+          type: string
+        new_password:
+          type: string
+      required:
+      - old_password
+      - new_password

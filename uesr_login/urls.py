@@ -19,15 +19,18 @@ from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework_swagger.views import get_swagger_view
 from rest_framework.schemas import get_schema_view
+from django.views.generic import TemplateView
 
 
 urlpatterns = [
-    path('swagger/docs', get_swagger_view(title='API')),
-    path('openapi', get_schema_view(
-        title="Your Project",
-        description="API for all things …",
-        version="1.0.0"
-    ), name='openapi-schema'),
+    path('api_schema/', get_schema_view(
+        title='API Schema',
+        description='Guide for the REST API',
+    ), name='api_schema'),
+    path('docs/', TemplateView.as_view(
+        template_name='docs.html',
+        extra_context={'schema_url':'api_schema'}
+        ), name='swagger-ui'),
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
     path('', include('api.urls')),
